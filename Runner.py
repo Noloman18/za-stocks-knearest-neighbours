@@ -5,6 +5,7 @@ from scipy.spatial.distance import euclidean
 from sklearn.preprocessing import StandardScaler
 from sklearn.neighbors import NearestNeighbors
 from tabulate import tabulate
+import numpy as np
 
 if __name__ == '__main__':
     METRIC_DICTIONARY = {'K': 1000, 'M': 1000000, 'B': 1000000000, 'T': 1000000000000}
@@ -54,5 +55,7 @@ if __name__ == '__main__':
     for i in range(len(neighbors)):
         group = neighbors[i].tolist()
         group.append(i)
+        median_pb = np.median([data.iloc[idx,3] for idx in group])
+        median_ps = np.median([data.iloc[idx,4] for idx in group])
         stocks = [f"(name:{data.iloc[idx, 0]}, PB:{data.iloc[idx, 3]},PS:{data.iloc[idx, 4]})" for idx in group]
-        print(f"(name:{data.iloc[i, 0]}, PB:{data.iloc[i, 3]},PS:{data.iloc[i, 4]}) :=> {stocks}")
+        print(f"{i+1}. name:{data.iloc[i, 0]}, PB:{data.iloc[i, 3]},PS:{data.iloc[i, 4]} :=> Median PB:{median_pb:.2f} Median PS: {median_ps:.2f} {stocks}")
