@@ -60,4 +60,4 @@ if __name__ == '__main__':
         median_pb = np.median([data.iloc[idx,3] for idx in group])
         median_ps = np.median([data.iloc[idx,4] for idx in group])
         stocks = [f"(name:{data.iloc[idx, 0]}, PB:{data.iloc[idx, 3]},PS:{data.iloc[idx, 4]})" for idx in group]
-        print(f"{i+1}. name:{data.iloc[i, 0]}, PB:{data.iloc[i, 3]},PS:{data.iloc[i, 4]} :=> Median PB:{median_pb:.2f} {difference(data.iloc[i, 3],median_pb)}% Median PS: {median_ps:.2f} {difference(data.iloc[i, 4],median_ps)}% {stocks}")
+        print(f"{i+1}. name:{data.iloc[i, 0]}, PB:{data.iloc[i, 3]},PS:{data.iloc[i, 4]} :=> Median PB:{median_pb:.2f} {difference(data.iloc[i, 3],median_pb):.2f}% Median PS: {median_ps:.2f} {difference(data.iloc[i, 4],median_ps):.2f}% {stocks}")
