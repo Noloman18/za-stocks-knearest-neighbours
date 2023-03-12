@@ -50,6 +50,7 @@ if __name__ == '__main__':
     nbrs.fit(distances)
     neighbors = nbrs.kneighbors(return_distance=False)
 
+
     # 'name_trans' 0,'viewData.symbol' 1,'industry_trans' 2,'price2bk_us' 3,'ttmpr2rev_us' 4
     # Print the groups
     def difference(first,second):
