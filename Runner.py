@@ -54,11 +54,18 @@ if __name__ == '__main__':
     # 'name_trans' 0,'viewData.symbol' 1,'industry_trans' 2,'price2bk_us' 3,'ttmpr2rev_us' 4
     # Print the groups
     def difference(first,second):
-        return 100*(second-first)/first
+        return 100*(second-first)/first if first!= None and first>0 else 0
 
+    output = []
+    output.append('index,stock_name,pb,ps,median_pb,difference_pb,median_ps,difference_ps,neighbour_name,neighbour_pb,neighbour_ps')
     for i in range(len(neighbors)):
         group = neighbors[i].tolist()
         median_pb = np.median([data.iloc[idx,3] for idx in group])
         median_ps = np.median([data.iloc[idx,4] for idx in group])
-        stocks = [f"(name:{data.iloc[idx, 0]}, PB:{data.iloc[idx, 3]},PS:{data.iloc[idx, 4]})" for idx in group]
-        print(f"{i+1}. name:{data.iloc[i, 0]}, PB:{data.iloc[i, 3]},PS:{data.iloc[i, 4]} :=> Median PB:{median_pb:.2f} {difference(data.iloc[i, 3],median_pb):.2f}% Median PS: {median_ps:.2f} {difference(data.iloc[i, 4],median_ps):.2f}% {stocks}")
+        stocks = ','.join([f"{data.iloc[idx, 0]},{data.iloc[idx, 3]},{data.iloc[idx, 4]}" for idx in group])
+        output.append(f"{i+1},{data.iloc[i, 0]},{data.iloc[i, 3]},{data.iloc[i, 4]},{median_pb:.2f},{difference(data.iloc[i, 3],median_pb):.2f},{median_ps:.2f},{difference(data.iloc[i, 4],median_ps):.2f},{stocks}")
+
+    with open('output.csv', 'w', encoding='utf-8') as f:
+        for line in output:
+            print(line)
+            f.write(line + '\n')
